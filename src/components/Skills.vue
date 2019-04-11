@@ -17,12 +17,15 @@
 
       <ul>
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
-          <li v-for="(data, index) in skills" :key="index">{{ index }}. {{ data.skill}}</li>
+          <li v-for="(data, index) in skills" :key="index"> 
+            {{ index + 1 }}. {{ data.skill}}
+            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
+          </li>
         </transition-group>
       </ul>
 
-      <p v-if="skills.length >= 1">You have more than 1 skills</p>
-      <p v-else>You have less than or equal 1 skill</p>
+      <p v-if="skills.length >= 1">These are skills that you possess</p>
+      <p v-else>Please add your skills</p>
     </div>
   </div>
 </template>
@@ -46,12 +49,16 @@ export default {
           console.log("Not valid");
         }
       });
+    },
+    remove(id) {
+      this.skills.splice(id, 1);
     }
   }
 };
 </script>
 
 <style scoped>
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"; 
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
 
 .holder {
@@ -106,6 +113,7 @@ input {
 .alert-in-leave-active {
   animation: bounce-in 0.5s reverse;
 }
+
 @keyframes bounce-in {
   0% {
     transform: scale(0);
@@ -116,5 +124,10 @@ input {
   100% {
     transform: scale(1);
   }
+}
+
+i {
+  float:right;
+  cursor:pointer;
 }
 </style>
